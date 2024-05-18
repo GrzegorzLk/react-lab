@@ -33,7 +33,10 @@ function App() {
             <h1>System do zapisów na zajęcia</h1>
             <h2>Twój e-mail to {email}.</h2>
             {message}
-            <input value={email} type="text" onChange={handleChange}/>
+            <input value={email} type="text" onChange={handleChange} className="dlugiePole"/>
+            <button onClick= {() => alert(email)}>
+                "Wyświetl alert z emailem."
+            </button>
         </div>
     );
 }
