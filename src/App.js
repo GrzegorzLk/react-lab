@@ -3,42 +3,43 @@ import './App.css';
 import {useState} from "react";
 
 function App() {
-    let [email, setEmail] = useState('123');
+    const [email, setEmail] = useState('');
+    const [userLogged, setUserLogged] = useState(false);
 
     function handleChange(event) {
         console.log(event.target.value);
         setEmail(event.target.value);
     }
 
-    // function EmailLenght(){
-    //     if (email.length <4)
-    //         return <h2>Twój e-mail jest za mały!</h2>;
-    //     else if (email.length <8)
-    //         return <h2>Twój e-mail jest w sam raz!</h2>;
-    //     else
-    //         return <h2>Ale duży email!</h2>;
-    // }
+    function logUser() {
+        if (email.length > 0)
+            setUserLogged(true);
+    }
 
-    let message;
-    if (email.length < 10) {
-        message = <div>Ale masz krótki adres!</div>;
-    } else if (email.length < 15) {
-        message = <div>Twój adres e-mail jest w sam raz.</div>;
+    let content;
+    if (!userLogged) {
+        content = <div>
+            <h2>Zaloguj się za pomocą adresu email:</h2>
+            {/*{message}*/}
+            <input value={email} type="text" onChange={handleChange} className="dlugiePole"/>
+            <button onClick={() => logUser()}>
+                ZALOGUJ
+            </button>
+        </div>
     } else {
-        message = <div>Twój adres e-mail jest stanowczo za długi.</div>;
+        content = <div>
+            <h2>Witaj {email}.</h2>
+            <button onClick={() => {setUserLogged(false); setEmail("")}} >
+                WYLOGUJ
+            </button>
+        </div>
     }
 
     return (
         <div>
             <h1>System do zapisów na zajęcia</h1>
-            <h2>Twój e-mail to {email}.</h2>
-            {message}
-            <input value={email} type="text" onChange={handleChange} className="dlugiePole"/>
-            <button onClick= {() => alert(email)}>
-                "Wyświetl alert z emailem."
-            </button>
-        </div>
-    );
+            {content}
+        </div>);
 }
 
 export default App;
